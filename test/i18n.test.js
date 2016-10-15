@@ -25,11 +25,12 @@ describe('I18n', () => {
 
   describe('#load', () => {
     context('when passed a directory', () => {
-      before(() => {
-        i18n.load(LOCALE_DIR);
+      before((done) => {
+        i18n.load(LOCALE_DIR, done);
       });
 
       it('loads all the locales in the directory', () => {
+        expect(i18n.translations['en-us'].test.section.hello).to.equal('world');
       });
     });
   });
