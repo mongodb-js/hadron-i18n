@@ -30,7 +30,7 @@ describe('I18n', () => {
       })
 
       it('loads all the locales in the directory', () => {
-        expect(i18n.translations['en-us'].test.section.hello).to.equal('world');
+        expect(i18n.translations['en-gb'].test.section.hello).to.equal('world');
       });
     });
   });
