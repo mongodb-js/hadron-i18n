@@ -1,0 +1,21 @@
+{
+  "name": "hadron-i18n",
+  "version": "0.0.1",
+  "description": "I18n for hadron applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "keywords": [
+    "i18n"
+  ],
+  "author": "Durran Jordan <durran@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {
+    "node-yaml": "^3.0.3"
+  }
+}
