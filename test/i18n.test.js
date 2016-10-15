@@ -33,11 +33,11 @@ describe('I18n', () => {
         })
 
         it('loads all the locales in the directory', () => {
-          expect(i18n.translations['en-gb'].test.section.hello).to.equal('world');
+          expect(i18n._translations['en-gb'].test.section.hello).to.equal('world');
         });
 
         it('only loads yml files', () => {
-          expect(i18n.translations.hasOwnProperty('test.txt')).to.equal(false);
+          expect(i18n._translations.hasOwnProperty('test.txt')).to.equal(false);
         });
       });
 
@@ -47,11 +47,11 @@ describe('I18n', () => {
         })
 
         it('does not overwrite the original translations', () => {
-          expect(i18n.translations['de'].test.section.hello).to.equal('Welt');
+          expect(i18n._translations['de'].test.section.hello).to.equal('Welt');
         });
 
         it('adds the additional locales to the translations', () => {
-          expect(i18n.translations['de'].test.section.thing).to.equal('Ding');
+          expect(i18n._translations['de'].test.section.thing).to.equal('Ding');
         });
       });
     });
