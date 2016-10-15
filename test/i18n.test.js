@@ -7,6 +7,12 @@ const LOCALE_DIR = path.join(__dirname, 'locales');
 const ADDITIONAL_LOCALES = path.join(LOCALE_DIR, 'additional');
 
 describe('I18n', () => {
+  describe('#new', () => {
+    it('sets the empty translations', () => {
+      expect(i18n._translations).to.deep.equal({});
+    });
+  });
+
   describe('#currentLocale', () => {
     context('when the locale is not set', () => {
       it('defaults to en-GB', () => {
