@@ -4,6 +4,8 @@ const i18n = require('../index');
 
 const LOCALE_DIR = path.join(__dirname, 'locales');
 
+const ADDITIONAL_LOCALES = path.join(LOCALE_DIR, 'additional');
+
 describe('I18n', () => {
   describe('#currentLocale', () => {
     context('when the locale is not set', () => {
@@ -40,7 +42,17 @@ describe('I18n', () => {
       });
 
       context('when loading additional translations', () => {
+        before((done) => {
+          i18n.load(ADDITIONAL_LOCALES, done);
+        })
 
+        it('does not overwrite the original translations', () => {
+          expect(i18n.translations['de'].test.section.hello).to.equal('Welt');
+        });
+
+        it('adds the additional locales to the translations', () => {
+          expect(i18n.translations['de'].test.section.thing).to.equal('Ding');
+        });
       });
     });
   });
