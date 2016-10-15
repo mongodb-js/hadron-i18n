@@ -25,17 +25,23 @@ describe('I18n', () => {
 
   describe('#load', () => {
     context('when passed a directory', () => {
-      before((done) => {
-        i18n.load(LOCALE_DIR, done);
-      })
+      context('when loading new translations', () => {
+        before((done) => {
+          i18n.load(LOCALE_DIR, done);
+        })
 
-      it('loads all the locales in the directory', () => {
-        expect(i18n.translations['en-gb'].test.section.hello).to.equal('world');
+        it('loads all the locales in the directory', () => {
+          expect(i18n.translations['en-gb'].test.section.hello).to.equal('world');
+        });
+
+        it('only loads yml files', () => {
+          expect(i18n.translations.hasOwnProperty('test.txt')).to.equal(false);
+        });
+      });
+
+      context('when loading additional translations', () => {
+
       });
     });
-  });
-
-  describe('#currentTranslations', () => {
-
   });
 });
