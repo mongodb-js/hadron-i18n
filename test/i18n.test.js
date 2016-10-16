@@ -1,63 +1,62 @@
 const path = require('path');
 const expect = require('chai').expect;
-const i18n = require('../index');
+const I18n = require('../index');
 
-const LOCALE_DIR = path.join(__dirname, 'locales');
-
-const ADDITIONAL_LOCALES = path.join(LOCALE_DIR, 'additional');
+const LOCALES_1 = path.join(__dirname, 'locales_1');
+const LOCALES_2 = path.join(__dirname, 'locales_2');
 
 describe('I18n', () => {
   describe('#new', () => {
-    it('sets the empty translations', () => {
-      expect(i18n._translations).to.deep.equal({});
-    });
-  });
+    context('when a fallback is provided', () => {
+      const i18n = new I18n('en-us', 'de');
 
-  describe('#currentLocale', () => {
-    context('when the locale is not set', () => {
-      it('defaults to en-GB', () => {
-        expect(i18n.currentLocale()).to.equal('en-gb');
+      it('sets the empty translations', () => {
+        expect(i18n._translations).to.deep.equal({});
+      });
+
+      it('sets the locale', () => {
+        expect(i18n.locale).to.equal('en-us');
+      });
+
+      it('sets the fallback', () => {
+        expect(i18n.fallback).to.equal('de');
       });
     });
-  });
 
-  describe('#setLocale', () => {
-    before(() => {
-      i18n.setLocale('en-US');
-    });
+    context('when no fallback is provided', () => {
+      const i18n = new I18n('en-us');
 
-    it('sets the locale', () => {
-      expect(i18n.currentLocale()).to.equal('en-us');
+      it('sets a default fallback', () => {
+        expect(i18n.fallback).to.equal('en-gb');
+      });
     });
   });
 
   describe('#load', () => {
     context('when passed a directory', () => {
+      const i18n = new I18n('de');
+
       context('when loading new translations', () => {
         before((done) => {
-          i18n.load(LOCALE_DIR, done);
+          i18n.load(LOCALES_1, done);
         })
 
-        it('loads all the locales in the directory', () => {
-          expect(i18n._translations['en-gb'].test.section.hello).to.equal('world');
-        });
-
-        it('only loads yml files', () => {
-          expect(i18n._translations.hasOwnProperty('test.txt')).to.equal(false);
+        it('loads only the set locale from the directory', () => {
+          expect(i18n._translations.test.section.hello).to.equal('Welt');
         });
       });
 
       context('when loading additional translations', () => {
         before((done) => {
-          i18n.load(ADDITIONAL_LOCALES, done);
+          i18n.load(LOCALES_2, done);
         })
 
         it('does not overwrite the original translations', () => {
-          expect(i18n._translations['de'].test.section.hello).to.equal('Welt');
+          expect(i18n._translations.test.section.hello).to.equal('Welt');
         });
 
-        it('adds the additional locales to the translations', () => {
-          expect(i18n._translations['de'].test.section.thing).to.equal('Ding');
+        it('merges the additional translations', () => {
+          expect(i18n._translations.test.section.thing).to.equal('Ding');
         });
       });
     });
