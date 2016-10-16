@@ -41,7 +41,7 @@ describe('I18n', () => {
           context('when loading new translations', () => {
             before((done) => {
               i18n.load(LOCALES_1, done);
-            })
+            });
 
             it('loads only the set locale from the directory', () => {
               expect(i18n.t.test.section.hello).to.equal('Welt');
@@ -51,7 +51,7 @@ describe('I18n', () => {
           context('when loading additional translations', () => {
             before((done) => {
               i18n.load(LOCALES_2, done);
-            })
+            });
 
             it('does not overwrite the original translations', () => {
               expect(i18n.t.test.section.hello).to.equal('Welt');
@@ -79,7 +79,7 @@ describe('I18n', () => {
 
             before((done) => {
               i18n.load(LOCALES_1, done);
-            })
+            });
 
             it('loads the fallback translations', () => {
               expect(i18n.t.test.section.hello).to.equal('Welt');
@@ -91,7 +91,7 @@ describe('I18n', () => {
 
             before((done) => {
               i18n.load(LOCALES_1, done);
-            })
+            });
 
             it('falls back to the default', () => {
               expect(i18n.t.test.section.hello).to.equal('world');
@@ -116,7 +116,7 @@ describe('I18n', () => {
 
         before((done) => {
           i18n.load('./does-not-exist', done);
-        })
+        });
 
         it('skips the directory', () => {
           expect(i18n.t.test).to.equal(undefined);

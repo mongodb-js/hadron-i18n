@@ -4,19 +4,27 @@
   "description": "I18n for hadron applications",
   "main": "index.js",
   "scripts": {
+    "ci": "npm run check && npm test",
+    "fmt": "mongodb-js-fmt ./*.js ./test/*.js",
+    "check": "mongodb-js-precommit",
     "test": "mocha --recursive"
   },
   "keywords": [
     "i18n"
   ],
+  "precommit": [
+    "check"
+  ],
   "author": "Durran Jordan <durran@gmail.com>",
   "license": "Apache-2.0",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.1.2"
-  },
   "dependencies": {
     "lodash": "^4.16.4",
     "node-yaml": "^3.0.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint-config-mongodb-js": "^2.2.0",
+    "mocha": "^3.1.2",
+    "mongodb-js-precommit": "^0.2.9"
   }
 }
