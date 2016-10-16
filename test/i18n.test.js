@@ -61,6 +61,16 @@ describe('I18n', () => {
               expect(i18n.t.test.section.thing).to.equal('Ding');
             });
           });
+
+          context('when passing a custom callback', () => {
+            it('yields with the error and the instance', (done) => {
+              i18n.load(LOCALES_2, (error, i) => {
+                expect(error).to.equal(null);
+                expect(i).to.deep.equal(i18n);
+                done();
+              });
+            });
+          });
         });
 
         context('when the locale does not exist', () => {
