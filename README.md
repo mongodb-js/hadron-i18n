@@ -8,24 +8,48 @@ Extremely simple i18n support for hadron applications.
 npm install --save hadron-i18n
 ```
 
-## Usage
+## Usage in Electron
 
-Translations should be in `.yml` with the filenames *all lowercase*. Use
-camelcasing of keys for the ability to use dot notation.
-
-```yml
-myapp:
-  toolbar:
-    text: "Testing"
-```
+In the renderer process entry point, for example `src/renderer/index.js`:
 
 ```javascript
+const path = require('path');
+const electron = require('electron');
 const I18n = require('hadron-i18n');
-new I18n('de', 'en-GB').load('/path/to/my/locales', (error, i18n) => {
-  global.t = i18n.t;
-});
 
-console.log(global.t.myapp.toolbar.text);
+const LOCALES = path.join(__dirname, 'locales');
+
+new I18n(electron.remove.app.getLocale()).load(LOCALES, (error, i18n) => {
+  global.t = i18n.t
+});
+```
+
+An example locale file, must be `.yml` and the filename must be lowercase.
+Example `en-us.yml`:
+
+```yml
+toolbar:
+  home: "Home"
+  list: "List"
+```
+
+An example React component that uses the translations:
+
+```jsx
+const React = require('react');
+
+class ToolbarComponent extends React.Component {
+  render() {
+    return (
+      <div className="toolbar">
+        <ol>
+          <li>{global.t.toolbar.home}</li>
+          <li>{global.t.toolbar.list}</li>
+        </ol>
+      </div>
+    )
+  }
+}
 ```
 
 
