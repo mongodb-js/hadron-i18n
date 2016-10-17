@@ -19,7 +19,7 @@ const I18n = require('hadron-i18n');
 
 const LOCALES = path.join(__dirname, 'locales');
 
-new I18n(electron.remove.app.getLocale()).load(LOCALES, (error, i18n) => {
+new I18n(electron.remote.app.getLocale()).load(LOCALES, (error, i18n) => {
   global.t = i18n.t
 });
 ```
