@@ -18,7 +18,7 @@
   "author": "Durran Jordan <durran@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "lodash": "^4.16.4",
+    "lodash": "^4.17.1",
     "node-yaml": "^3.0.3"
   },
   "devDependencies": {
